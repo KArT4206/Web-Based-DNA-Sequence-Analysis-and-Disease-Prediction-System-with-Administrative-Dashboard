@@ -97,19 +97,7 @@ Step 5: Import SQL file
 
 ------------------------------------------------------------------------
 
-## 7. Running the Project
-
-Open browser:
-
-http://localhost/Final_Merged_Project
-
-Admin Panel:
-
-http://localhost/Final_Merged_Project/admin
-
-------------------------------------------------------------------------
-
-## 8. Algorithm Used
+## 7. Algorithm Used
 
 DNA Sequence Matching Algorithm
 
@@ -123,7 +111,7 @@ Steps:
 
 ------------------------------------------------------------------------
 
-## 9. Time Complexity
+## 8. Time Complexity
 
 DNA Sequence Processing
 
@@ -153,7 +141,7 @@ O(n \* m)
 
 ------------------------------------------------------------------------
 
-## 10. Space Complexity
+## 9. Space Complexity
 
 DNA storage:
 
@@ -169,7 +157,7 @@ O(n + m)
 
 ------------------------------------------------------------------------
 
-## 11. Functional Modules
+## 10. Functional Modules
 
 User Module:
 
@@ -193,13 +181,13 @@ Analysis Module:
 
 ------------------------------------------------------------------------
 
-## 12. Data Flow
+## 11. Data Flow
 
 User Upload → Backend → Analysis → Database → Result
 
 ------------------------------------------------------------------------
 
-## 13. Applications
+## 12. Applications
 
 -   Genetic disease prediction
 -   Bioinformatics research
@@ -208,7 +196,7 @@ User Upload → Backend → Analysis → Database → Result
 
 ------------------------------------------------------------------------
 
-## 14. Future Enhancements
+## 13. Future Enhancements
 
 -   Machine learning integration
 -   AI-based prediction
@@ -217,7 +205,7 @@ User Upload → Backend → Analysis → Database → Result
 
 ------------------------------------------------------------------------
 
-## 15. Author
+## 14. Author
 
 Karthik B
 Abinaya 
@@ -225,7 +213,7 @@ Priyanka
 
 ------------------------------------------------------------------------
 
-## 16. License
+## 15. License
 
 Educational Use Only
 
