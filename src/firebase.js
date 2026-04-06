@@ -25,12 +25,12 @@ import {
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAJ9Gajzwe8tFaoumO-yvlBCQIj2LRbP-4",
-  authDomain: "genomic-platform-b3680.firebaseapp.com",
-  projectId: "genomic-platform-b3680",
-  storageBucket: "genomic-platform-b3680.firebasestorage.app",
-  messagingSenderId: "678900271117",
-  appId: "1:678900271117:web:a2b87f2eb89fc2ef84ad44"
+  apiKey: ".....",
+  authDomain: "........",
+  projectId: ".......",
+  storageBucket: ".........",
+  messagingSenderId: ".......",
+  appId: "....."
 };
 
 // Initialize Firebase
