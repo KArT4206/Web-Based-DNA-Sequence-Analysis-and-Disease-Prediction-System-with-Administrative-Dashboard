@@ -1,0 +1,2 @@
+# Web-Based-DNA-Sequence-Analysis-and-Disease-Prediction-System-with-Administrative-Dashboard
+A web-based DNA Sequence Analysis and Genetic Disease Prediction System that allows users to upload DNA (FASTA) files for analysis and identify possible genetic diseases. The system includes an admin dashboard for managing users, datasets, and results. Built using Python, PHP, MySQL, and web technologies for efficient bioinformatics analysis.
