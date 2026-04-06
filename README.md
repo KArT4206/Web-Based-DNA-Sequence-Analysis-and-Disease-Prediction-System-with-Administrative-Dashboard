@@ -220,6 +220,8 @@ User Upload → Backend → Analysis → Database → Result
 ## 15. Author
 
 Karthik B
+Abinaya 
+Priyanka
 
 ------------------------------------------------------------------------
 
