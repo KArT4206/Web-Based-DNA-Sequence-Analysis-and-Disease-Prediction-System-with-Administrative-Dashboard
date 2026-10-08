@@ -1,220 +1,56 @@
-# DNA Sequence Analysis and Genetic Disease Prediction System with Admin Dashboard
+# DNA Sequence Analysis and Genetic Disease Prediction System
 
-## 1. Project Overview
+A web platform for analysing DNA sequences and flagging **possible genetic disease associations**. Users paste a sequence or upload a FASTA file, choose the gene to compare against, and receive a report of the variants found, the diseases they are linked to, and a combined risk score from a curated variant database plus a machine-learning model. Administrators get a dashboard over every user and every result.
 
-The DNA Sequence Analysis and Genetic Disease Prediction System is a
-web-based bioinformatics application designed to analyze DNA sequences
-and predict possible genetic diseases. The system allows users to upload
-DNA sequence files in FASTA format, processes them using computational
-algorithms, and generates results indicating possible genetic
-abnormalities and disease associations.
+> This repository documents the project (description, design, screenshots). The source code lives in a private repository, `DNA-Prediction-System-code`. Educational tool; **not for clinical or diagnostic use**.
 
-The system also includes an administrative dashboard that allows
-administrators to manage users, datasets, uploaded DNA sequences, and
-analysis results.
+## Screenshots
 
-This project aims to bridge bioinformatics analysis and web-based
-accessibility, making DNA sequence analysis easier for students,
-researchers, and healthcare professionals.
+Output from the real code paths (the web UI sits behind Firebase sign-in, so these show the engines it calls):
 
-------------------------------------------------------------------------
+**Variant pipeline** (`buildVariantReport`): finds the change against the reference gene and annotates it.
 
-## 2. Objectives
+![Variant pipeline](docs/images/pipeline.png)
 
-Primary Objectives:
+**Prediction API** (Flask, Decision Tree): the model scores each variant as Harmful or Benign with a probability.
 
--   Analyze DNA sequences from FASTA files
--   Identify mutations and genetic variations
--   Predict possible genetic diseases
--   Provide web-based interface for accessibility
--   Implement admin dashboard for management
+![Prediction API](docs/images/api.png)
 
-Secondary Objectives:
+**Pattern tests** (70 regular-expression motif tests run on every sequence):
 
--   Provide scalable architecture
--   Ensure modular code design
--   Maintain secure user authentication
--   Enable dataset expansion
+![Pattern tests](docs/images/tests.png)
 
-------------------------------------------------------------------------
+**Command-line analyzer** (`tools/dnaanalyzer.py`): GC content, base counts, pattern search, similarity.
 
-## 3. System Architecture
+![CLI analyzer](docs/images/analyzer.png)
 
-System consists of the following components:
+## How it works
 
-1.  Frontend Interface
-2.  Backend Server
-3.  DNA Analysis Engine
-4.  Database Management System
-5.  Admin Dashboard
+```
+ FASTA / pasted DNA
+        |  validate (A,T,G,C only) + normalise
+        v
+ 1. 70 motif tests ------------------------------> pattern summary
+ 2. align to reference gene -> list substitutions
+ 3. look each variant up in the variant database -> disease + significance
+        |                      \
+        |                       +--> closest "AI-similar" match when no exact hit
+        v
+ 4. for each hit: POST /predict -> Decision Tree -> Harmful/Benign + probability
+ 5. final risk = average(database weight, model probability)
+        v
+ saved to Firestore -> shown to the user, listed for the admin
+```
 
-Architecture Flow:
+- **Reference library**: HBB, CFTR, BRCA1, PAH, HEXA, DMD, F8 and HTT short reference sequences.
+- **Variant database**: known variants such as HBB position 5 A to T (Sickle Cell Disease), CFTR T to C (Cystic Fibrosis), BRCA1 A to G (Breast Cancer risk), each with a significance (Pathogenic, Likely pathogenic, Uncertain).
+- **Confidence** (High/Medium/Low) and an **AI disease probability** are derived from how many pathogenic and likely-pathogenic matches are found (logistic function).
+- **ML model**: `backend/train_model.py` trains a scikit-learn `DecisionTreeClassifier` (max depth 6) on `gene_mutation_data.csv` (92 labelled variants) using gene id, position, reference base and alternate base; `backend/app.py` serves it as `POST /predict` and `GET /health`.
+- **Accounts and roles**: Firebase Authentication; each user has a `user` or `admin` role in Firestore. Users see only their own results; admins see all results and users and can promote or demote roles.
+- **Front end**: React 18 with Tailwind CSS, Framer Motion and Recharts charts.
 
-User → Upload DNA → Backend Processing → Python Analysis → Database →
-Result Display
+## Tech stack
+React, Tailwind CSS, Recharts, Framer Motion, Firebase Authentication + Firestore, Python Flask, scikit-learn, pandas, joblib.
 
-------------------------------------------------------------------------
-
-## 4. Technologies Used
-
-Frontend: - HTML - CSS - JavaScript - Bootstrap
-
-Backend: - PHP
-
-DNA Analysis: - Python - Bioinformatics libraries
-
-Database: - MySQL
-
-Server: - Apache (XAMPP)
-
-------------------------------------------------------------------------
-
-## 5. Project Structure
-
-Final_Merged_Project/
-
-admin/ analysis/ uploads/ templates/ static/ database/
-
-index.php login.php register.php upload.php result.php
-
-------------------------------------------------------------------------
-
-## 6. Installation Guide
-
-Step 1: Install XAMPP
-
-Step 2: Move project folder to
-
-C:`\xampp`{=tex}`\htdocs`{=tex}\
-
-Step 3: Start Apache and MySQL
-
-Step 4: Create database using phpMyAdmin
-
-Database name: dna_project
-
-Step 5: Import SQL file
-
-------------------------------------------------------------------------
-
-## 7. Algorithm Used
-
-DNA Sequence Matching Algorithm
-
-Steps:
-
-1.  Read FASTA file
-2.  Extract DNA sequence
-3.  Compare with known gene sequences
-4.  Detect mutations
-5.  Predict disease
-
-------------------------------------------------------------------------
-
-## 8. Time Complexity
-
-DNA Sequence Processing
-
-Let:
-
-n = length of DNA sequence
-
-Sequence comparison:
-
-Time Complexity: O(n)
-
-Mutation detection:
-
-Time Complexity: O(n)
-
-Overall Complexity:
-
-O(n)
-
-If multiple gene comparison:
-
-n = sequence length m = number of gene patterns
-
-Time Complexity:
-
-O(n \* m)
-
-------------------------------------------------------------------------
-
-## 9. Space Complexity
-
-DNA storage:
-
-Space Complexity: O(n)
-
-Dataset storage:
-
-Space Complexity: O(m)
-
-Total Space Complexity:
-
-O(n + m)
-
-------------------------------------------------------------------------
-
-## 10. Functional Modules
-
-User Module:
-
--   Register
--   Login
--   Upload DNA
--   View Results
-
-Admin Module:
-
--   Admin Login
--   Manage Users
--   Manage Dataset
--   View Results
-
-Analysis Module:
-
--   FASTA Parser
--   Mutation Detection
--   Disease Prediction
-
-------------------------------------------------------------------------
-
-## 11. Data Flow
-
-User Upload → Backend → Analysis → Database → Result
-
-------------------------------------------------------------------------
-
-## 12. Applications
-
--   Genetic disease prediction
--   Bioinformatics research
--   Academic learning
--   Healthcare analysis
-
-------------------------------------------------------------------------
-
-## 13. Future Enhancements
-
--   Machine learning integration
--   AI-based prediction
--   Cloud deployment
--   Advanced visualization
-
-------------------------------------------------------------------------
-
-## 14. Author
-
-Karthik B
-Abinaya 
-Priyanka
-
-------------------------------------------------------------------------
-
-## 15. License
-
-Educational Use Only
-
-------------------------------------------------------------------------
+## Limitations
+Reference sequences and the variant list are small educational samples, and the model is trained on a tiny dataset; results illustrate the method only.
