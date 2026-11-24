@@ -1,5 +1,8 @@
 # DNA Sequence Analysis and Genetic Disease Prediction System
 
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue)](LICENSE)
+![Last commit](https://img.shields.io/github/last-commit/KArT4206/Web-Based-DNA-Sequence-Analysis-and-Disease-Prediction-System-with-Administrative-Dashboard)
+
 A web platform for analysing DNA sequences and flagging **possible genetic disease associations**. Users paste a sequence or upload a FASTA file, choose the gene to compare against, and receive a report of the variants found, the diseases they are linked to, and a combined risk score from a curated variant database plus a machine-learning model. Administrators get a dashboard over every user and every result.
 
 > This repository documents the project (description, design, screenshots). The source code lives in a private repository, `DNA-Prediction-System-code`. Educational tool; **not for clinical or diagnostic use**.
